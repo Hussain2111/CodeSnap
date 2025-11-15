@@ -1,0 +1,18 @@
+{
+  "name": "CodeSnap",
+  "short_name": "CodeSnap",
+  "description": "Snap code photos and extract code with AI",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1a73e8",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/CodeSnapLogo.PNG",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

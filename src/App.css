@@ -12,6 +12,8 @@ body{margin:0;font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, '
 .gs-hero{height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
 .gs-card{max-width:720px;width:100%;text-align:center;padding:56px;border-radius:12px;box-shadow:0 10px 30px rgba(60,64,67,0.15)}
 
+.gs-logo{width:160px;height:160px;margin:0 auto 24px;display:block;object-fit:contain}
+
 .google-logo{font-size:36px;font-weight:700;display:inline-block;margin-bottom:8px}
 .google-logo span{display:inline-block;padding:0 2px}
 .g-blue{color:var(--google-blue)}

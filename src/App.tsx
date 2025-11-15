@@ -36,8 +36,8 @@ function App() {
   return (
     <div className="gs-hero">
       <div className="gs-card">
+        <img src="/CodeSnapLogo.PNG" alt="CodeSnap" className="gs-logo" />
         <GoogleLogo />
-        <h1 className="gs-title">CodeSnap</h1>
         <p className="gs-desc">Instantly extract code from lecture screens — snap, extract, paste.</p>
 
         <div className="gs-cta">
