@@ -79,50 +79,6 @@ export default function Camera({ onClose }: Props) {
       .catch((e) => setError(e?.message || 'Unable to access camera'))
   }
 
-  async function selectThis() {
-    if (!captured) return
-    const ts = Date.now()
-    const filename = `codesnap-${ts}.jpg`
-    // Prefer File System Access API when available (Chromium-based browsers)
-    try {
-      // @ts-ignore - showDirectoryPicker may not exist in all browsers
-      if (window.showDirectoryPicker) {
-        // Ask user to pick the repository folder (where your CodeSnap repo is located).
-        // The picker must be pointed at the repo root so we can create/update the `pictures` folder there.
-        // Note: Browsers require user interaction for this and handles are not persisted automatically.
-        const proceed = window.confirm('To save directly into your local repository, please select your CodeSnap repository folder in the next dialog. Select OK to continue.')
-        if (!proceed) throw new Error('user cancelled')
-
-        // @ts-ignore
-        const rootHandle: FileSystemDirectoryHandle = await window.showDirectoryPicker()
-        // create or open `pictures` subdirectory inside the selected folder
-        const picturesHandle = await rootHandle.getDirectoryHandle('pictures', { create: true })
-        const fileHandle = await picturesHandle.getFileHandle(filename, { create: true })
-        const writable = await fileHandle.createWritable()
-
-        // data is a data URL like 'data:image/jpeg;base64,...'
-        const base64 = captured.split(',')[1]
-        const buffer = Uint8Array.from(atob(base64), (c) => c.charCodeAt(0))
-        await writable.write(buffer)
-        await writable.close()
-
-        alert(`Saved ${filename} to selected-folder/pictures (check your repo folder)`)
-        return
-      }
-    } catch (err) {
-      console.warn('File System Access API save failed or was cancelled', err)
-      // fall through to download fallback
-    }
-
-    // Fallback: trigger browser download (user chooses location)
-    const a = document.createElement('a')
-    a.href = captured
-    a.download = filename
-    document.body.appendChild(a)
-    a.click()
-    a.remove()
-  }
-
   async function analyzeImage() {
     if (!captured) return
     setExtracting(true)
@@ -150,6 +106,20 @@ export default function Camera({ onClose }: Props) {
     } finally {
       setExtracting(false)
     }
+  }
+
+  async function copyToClipboard() {
+    if (!extractedCode) return
+    try {
+      await navigator.clipboard.writeText(extractedCode)
+      // You could add a toast notification here if desired
+    } catch (err) {
+      console.error('Failed to copy:', err)
+    }
+  }
+
+  function closeModal() {
+    setExtractedCode(null)
   }
 
   return (
@@ -193,9 +163,19 @@ export default function Camera({ onClose }: Props) {
       </div>
 
       {extractedCode !== null && (
-        <div className="extracted-panel">
-          <h3>Extracted Code</h3>
-          <pre className="extracted-code">{extractedCode}</pre>
+        <div className="code-modal-overlay" onClick={closeModal}>
+          <div className="code-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="code-modal-header">
+              <h3>Extracted Code</h3>
+              <button className="code-modal-close" onClick={closeModal} aria-label="Close">×</button>
+            </div>
+            <div className="code-modal-content">
+              <pre className="code-modal-text">{extractedCode}</pre>
+            </div>
+            <div className="code-modal-footer">
+              <button className="btn primary" onClick={copyToClipboard}>Copy</button>
+            </div>
+          </div>
         </div>
       )}
     </div>
