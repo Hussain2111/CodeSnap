@@ -4,617 +4,573 @@
 
 **Hackathon:** Gemini Vibe Code Hackathon London  
 **Problem Statement:** Rapid Prototyping (Statement One)  
-**Team Size:** 4 people  
+**Team:** Hussain + Shayaan  
 **Build Time:** 7 hours (10 AM - 5 PM)
 
 ---
 
-## 🎯 The Problem We're Solving
+## 🎯 The Problem
 
-Every CS student faces this during lectures:
-- Professor shows code on the projector
-- You frantically try to type it while listening
-- You make typos, miss semicolons, mess up indentation
-- Professor moves to next slide before you finish
-- You take a blurry phone photo and manually retype later
-- You miss the actual explanation because you're busy typing
+CS students waste hours typing code from lecture screens. You make typos, miss explanations, and the professor moves on before you finish.
 
-**Result:** Wasted time, transcription errors, broken learning flow, frustrated students
+## 💡 The Solution
+
+**CodeSnap:** Snap a photo → Gemini Vision extracts code → Get formatted, copy-ready code in 15 seconds.
 
 ---
 
-## 💡 Our Solution
+## 👥 Team Split
 
-**CodeSnap** lets students snap a photo of projected code and instantly get clean, formatted, copy-pasteable code on their device.
-
-### How It Works:
-```
-Student takes photo of screen with phone
-    ↓
-Upload to CodeSnap web app
-    ↓
-Gemini Vision extracts code from image
-    ↓
-Code appears formatted and syntax-highlighted
-    ↓
-Copy to clipboard → Paste in your IDE
-    ↓
-Total time: 3 seconds
-```
-
-**No more typing. No more typos. Just learn.**
-
----
-
-## 🏗️ Architecture Overview
-
-```
-┌─────────────────┐
-│  Student's      │
-│  Phone Camera   │──→ Takes photo of projector
-└────────┬────────┘
-         │
-         ↓
-┌─────────────────┐
-│   Person 4:     │
-│  Mobile Web UI  │──→ Upload image interface
-└────────┬────────┘
-         │
-         ↓
-┌─────────────────┐
-│   Person 1:     │
-│  Image Upload   │──→ Receive & process image
-│  Handler        │
-└────────┬────────┘
-         │
-         ↓
-┌─────────────────┐
-│   Person 2:     │
-│  Gemini Vision  │──→ Extract code from image
-│  API Engine     │
-└────────┬────────┘
-         │
-         ↓
-┌─────────────────┐
-│   Person 3:     │
-│  Code Formatter │──→ Syntax highlight & format
-│  & Storage      │
-└────────┬────────┘
-         │
-         ↓
-┌─────────────────┐
-│  Student Gets   │
-│  Clean Code!    │──→ Copy, download, or sync
-└─────────────────┘
-```
-
----
-
-## 👥 Team Responsibilities
-
----
-
-### Hussain: Gemini Vision AI Engine
+### **Hussain: Vision + Frontend** 🎨
 **What you're building:**
-- Integration with Gemini 2.0 Flash Vision
-- Prompt engineering for accurate code extraction
-- Handle multiple programming languages
+- Mobile web app with camera interface
+- Gemini 2.0 Flash Vision API integration
+- Display extracted code with syntax highlighting
+- Copy to clipboard functionality
 
 **Tech Stack:**
+- React (Vite)
 - Gemini 2.0 Flash Vision API
-- Google AI SDK
-- Node.js or Python
+- Prism.js (syntax highlighting)
+- Tailwind CSS
 
 **Your Tasks:**
-1. Receive images from Person 1
-2. Send to Gemini Vision with optimized prompt
-3. Parse Gemini response to extract just code (no explanations)
-4. Detect programming language automatically
-5. Return clean code string to Person 1
+1. Build mobile-first UI with camera capture
+2. Integrate Gemini Vision API (call directly from frontend)
+3. Display formatted code with syntax highlighting
+4. Add copy button and loading states
+5. Handle errors (blurry image, no code detected)
 
-**Key Prompt:**
-```
-Extract ONLY the code from this image. Rules:
-1. Return code exactly as written, preserve all formatting
-2. Do NOT add explanations or comments
-3. Do NOT wrap in markdown code blocks
-4. If image is unclear, return "ERROR: Image quality too low"
-5. Detect the programming language
-```
-
-**Time Estimate:** 2-3 hours
+**Time:** 5-6 hours
 
 ---
 
-### Shayaan: Code Formatting & History
+### **Shayaan: Backend + Infrastructure** ⚙️
 **What you're building:**
-- Syntax highlighting for extracted code
-- Code history/library (save previous extractions)
-- Export options (download, copy to clipboard)
+- Backend API for history storage (optional)
+- Image preprocessing and optimization
+- Deployment and infrastructure
+- Demo prep and video recording
 
 **Tech Stack:**
-- Prism.js or Highlight.js (syntax highlighting)
-- In-memory storage or Firebase
-- Code beautifier libraries
+- Node.js + Express (optional - for history feature)
+- Sharp (image processing)
+- Firebase or Railway (hosting)
+- Vercel (frontend hosting)
 
 **Your Tasks:**
-1. Receive code from backend
-2. Apply syntax highlighting based on detected language
-3. Format code (proper indentation, spacing)
-4. Store in user's session history (last 10 extractions)
-5. Add copy-to-clipboard and download functionality
-6. Optional: Detect common OCR errors and fix (like `0` vs `O`)
+1. Help Hussain with Gemini API setup and testing
+2. Build optional backend for history storage
+3. Image preprocessing (if needed for better accuracy)
+4. Deploy both frontend and backend
+5. Record demo video by 4:30 PM
+6. Prepare pitch and presentation
 
-**Features:**
-- Syntax highlighting for: Python, JavaScript, Java, C++, C
-- One-click copy button
-- Download as `.py`, `.js`, etc.
-- History sidebar showing past extractions
-
-**Time Estimate:** 2-3 hours
+**Time:** 4-5 hours
 
 ---
 
-### Hussain & Shayaan: Image Upload & Processing Pipeline
-**What you're building:**
-- Backend API to receive image uploads
-- Image preprocessing (rotation, contrast, cropping)
-- Send images to Person 2's Gemini integration
+## 🏗️ Simple Architecture
 
-**Tech Stack:**
-- Node.js + Express or Python + Flask
-- Multer (file upload middleware)
-- Sharp or Pillow (image processing)
+### **Option A: Frontend Only (Simpler)**
+```
+React App (Hussain)
+    ↓
+Camera → Capture photo
+    ↓
+Call Gemini Vision API directly
+    ↓
+Display extracted code
+    ↓
+Copy to clipboard
 
-**Your Tasks:**
-1. Build `POST /upload` endpoint to receive images
-2. Validate image (size, format)
-3. Preprocess: auto-rotate, enhance contrast, crop to code area
-4. Send to Person 2's Gemini extraction function
-5. Return extracted code to frontend
+No backend needed!
+Shayaan helps with deployment + demo
+```
 
-**API Contract:**
+### **Option B: With Backend (More Features)**
+```
+React App (Hussain)
+    ↓
+Camera → Capture photo
+    ↓
+Upload to Backend (Shayaan)
+    ↓
+Backend calls Gemini Vision
+    ↓
+Store in history
+    ↓
+Return to frontend
+    ↓
+Display + Copy
+```
+
+**Recommendation:** Start with Option A. Add backend only if time allows.
+
+---
+
+## 📅 Hour-by-Hour Plan
+
+### **10:00 AM - 11:00 AM: Setup**
+
+**Both:**
+- Apply for Gemini API credits
+- Create GitHub repo
+- Get API key
+
+**Hussain:**
+- Set up React project with Vite
+- Test phone camera API
+- Make first Gemini Vision API call
+
+**Shayaan:**
+- Research image preprocessing
+- Set up deployment accounts (Vercel, Railway)
+- Test Gemini API with sample images
+
+**Checkpoint:** Hussain can capture photo, Gemini API responds
+
+---
+
+### **11:00 AM - 2:00 PM: Core Development**
+
+**Hussain:**
+- ✅ Build camera capture UI
+- ✅ Upload image to Gemini Vision
+- ✅ Parse response and extract code
+- ✅ Display code in text area
+- ✅ Basic syntax highlighting
+- ✅ Copy to clipboard button
+
+**Shayaan:**
+- ✅ Test Gemini with various code images (Python, Java, JS)
+- ✅ Optimize prompts for accuracy
+- ✅ Build simple backend API (if needed)
+- ✅ Image preprocessing helpers
+- ✅ Start deployment setup
+
+**Checkpoint at 1 PM:** Can take photo and see extracted code
+
+---
+
+### **2:00 PM - 3:30 PM: Integration + Polish**
+
+**Both:**
+- Test end-to-end flow on multiple phones
+- Fix bugs and improve accuracy
+- Add error handling (blurry image, no code detected)
+
+**Hussain:**
+- Polish UI (make it beautiful)
+- Add loading animations
+- Improve syntax highlighting
+- Test with 10+ different code samples
+- Mobile responsiveness
+
+**Shayaan:**
+- Deploy backend (if built)
+- Deploy frontend to Vercel
+- Test on live URLs
+- Add history feature (if time)
+- Prepare demo samples
+
+**Checkpoint at 3 PM:** Deployed and working on live URL
+
+---
+
+### **3:30 PM - 4:30 PM: Demo Prep**
+
+**Shayaan leads this:**
+- Record 1-minute demo video (must finish by 4:30 PM!)
+- Prepare demo code samples (intentionally good examples)
+- Test demo flow 3 times
+- Write pitch script
+
+**Hussain:**
+- Fix any critical bugs
+- Final UI polish
+- Make sure copy button works perfectly
+- Test on venue WiFi
+
+**Checkpoint at 4:30 PM:** Video recorded and uploaded
+
+---
+
+### **4:30 PM - 5:00 PM: Submit + Rehearse**
+
+**Both:**
+- Fill out submission form
+- Submit project
+- Rehearse pitch 2-3 times
+- Prepare for Q&A
+- Relax, grab coffee ☕
+
+---
+
+## 💻 Tech Implementation
+
+### **Hussain's Frontend Code Structure**
+
 ```javascript
-POST /upload
-Body: { image: File }
-Response: { 
-  code: "extracted code here",
-  language: "python",
-  confidence: 0.95
+// App.jsx
+import { useState } from 'react';
+import { GoogleGenerativeAI } from "@google/generative-ai";
+
+function App() {
+  const [image, setImage] = useState(null);
+  const [code, setCode] = useState('');
+  const [loading, setLoading] = useState(false);
+  
+  const captureImage = async () => {
+    // Use phone camera
+    const stream = await navigator.mediaDevices.getUserMedia({ 
+      video: { facingMode: 'environment' } 
+    });
+    // Capture frame and convert to base64
+  };
+  
+  const extractCode = async (imageBase64) => {
+    setLoading(true);
+    const genAI = new GoogleGenerativeAI(API_KEY);
+    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash-exp" });
+    
+    const prompt = `Extract ONLY the code from this image. 
+    Rules:
+    1. Return code exactly as written
+    2. Do NOT add explanations
+    3. Do NOT wrap in markdown
+    4. If unclear, return "ERROR: Image quality too low"`;
+    
+    const result = await model.generateContent([
+      prompt,
+      { inlineData: { data: imageBase64, mimeType: "image/jpeg" } }
+    ]);
+    
+    setCode(result.response.text());
+    setLoading(false);
+  };
+  
+  return (
+    <div className="app">
+      <button onClick={captureImage}>Snap Code</button>
+      {loading && <p>Extracting code...</p>}
+      {code && <CodeDisplay code={code} />}
+    </div>
+  );
 }
 ```
 
-**Time Estimate:** 2-3 hours
+### **Shayaan's Backend (Optional)**
 
----
+```javascript
+// server.js
+const express = require('express');
+const multer = require('multer');
+const { GoogleGenerativeAI } = require("@google/generative-ai");
 
-### Shama: Mobile-First Web UI
-**What you're building:**
-- Mobile-responsive web app (phone camera is primary use case)
-- Image upload interface (camera + gallery)
-- Display extracted code with actions
+const app = express();
+const upload = multer({ storage: multer.memoryStorage() });
 
-**Tech Stack:**
-- React (Vite) or plain HTML/JS
-- Tailwind CSS for mobile-first design
-- Native camera API
+app.post('/extract', upload.single('image'), async (req, res) => {
+  const imageBase64 = req.file.buffer.toString('base64');
+  
+  // Call Gemini Vision
+  const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+  const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash-exp" });
+  
+  const result = await model.generateContent([
+    "Extract code from image...",
+    { inlineData: { data: imageBase64, mimeType: req.file.mimetype } }
+  ]);
+  
+  res.json({ code: result.response.text() });
+});
 
-**Your Tasks:**
-1. Build mobile-first UI (works great on phones)
-2. Camera capture button (uses phone camera directly)
-3. Upload from gallery option (for existing photos)
-4. Loading state while processing
-5. Display extracted code in formatted view
-6. Action buttons: Copy, Download, New Snap
-7. History view (see past extractions)
-8. **Record 1-minute demo video by 4:30 PM**
-
-**Key UI Screens:**
-1. **Home:** Big "Snap Code" button
-2. **Camera:** Take photo or choose from gallery
-3. **Processing:** "Extracting code..." spinner
-4. **Result:** Formatted code + Copy/Download buttons
-5. **History:** List of past extractions
-
-**Time Estimate:** 3-4 hours + demo prep
-
----
-
-## 🛠️ Tech Stack Summary
-
-| Component | Technology | Why? |
-|-----------|------------|------|
-| Backend | Node.js + Express | Fast, simple API |
-| Image Upload | Multer | Standard file upload middleware |
-| Image Processing | Sharp | Fast image manipulation |
-| AI Model | Gemini 2.0 Flash Vision | Best multimodal OCR |
-| Syntax Highlighting | Prism.js | Lightweight, supports many languages |
-| Frontend | React + Vite | Fast mobile web app |
-| Styling | Tailwind CSS | Mobile-first utilities |
-| Hosting | Vercel (frontend) + Railway (backend) | Free, instant deploy |
-
----
-
-## 📅 Hour-by-Hour Timeline
-
-### Hour 0-1 (10:00 AM - 11:00 AM): Setup
-- **Everyone:** Team meeting, GitHub repo, apply for Gemini credits
-- **Person 1:** Set up Node.js backend, test file upload
-- **Person 2:** Test Gemini Vision API with sample images
-- **Person 3:** Test syntax highlighting libraries
-- **Person 4:** Initialize React project, test phone camera API
-
-**Checkpoint:** Everyone has their environment running
-
----
-
-### Hour 1-3 (11:00 AM - 1:00 PM): Core Development
-**Everyone builds their component in parallel**
-
-**Hussain & Shayaan**
-- ✅ Build upload endpoint
-- ✅ Test with sample images
-- ✅ Basic image preprocessing
-
-**Hussain**
-- ✅ Gemini Vision integration working
-- ✅ Test with 5+ code images (Python, JS, Java)
-- ✅ Optimize prompt for accuracy
-
-**Shayaan**
-- ✅ Syntax highlighting displays correctly
-- ✅ Copy-to-clipboard works
-- ✅ Basic history storage
-
-**Shama**
-- ✅ Camera capture works on phone
-- ✅ Upload to backend functional
-- ✅ Display extracted code
-
-**Checkpoint at 1 PM:** Can we do one end-to-end test?
-
----
-
-### Hour 3-5 (1:00 PM - 3:00 PM): Integration & Polish
-
-**All Team:**
-- Connect frontend to backend
-- Test full flow: Photo → Upload → Extract → Display
-- Fix integration bugs
-
-**Hussain and Shayaan:**
-- Optimize image quality → extraction accuracy
-- Handle edge cases (blurry images, weird angles)
-- Add error handling
-
-**shama:**
-- Polish UI (make it beautiful)
-- Add loading animations
-- Test on multiple phones
-
-**Checkpoint at 3 PM:** Full end-to-end demo works reliably
-
----
-
-### Hour 5-6 (3:00 PM - 4:00 PM): Advanced Features & Testing
-
-**Priority features to add:**
-1. **Auto-language detection** (Python vs Java vs JS)
-2. **Error correction** (fix common OCR mistakes)
-3. **Image quality warning** ("Image too blurry, try again")
-4. **History page** (see past 10 extractions)
-
-**Testing:**
-- Test with 10+ different code samples
-- Test on multiple phones (iOS, Android)
-- Test with bad lighting, angles, distances
-
----
-
-### Hour 6-7 (4:00 PM - 5:00 PM): Demo Prep & Submission
-
-**Person 4 leads demo prep:**
-- Record demo video by 4:30 PM
-- Prepare live demo script
-- Test on venue WiFi
-
-**Everyone:**
-- Fix critical bugs only (no new features!)
-- Polish UI for demo
-- Rehearse pitch 2-3 times
-- Submit by 5:00 PM
+app.listen(3000);
+```
 
 ---
 
 ## 🎬 Demo Script (3 minutes)
 
-### The Problem (30 seconds)
-**Person 4 speaks while showing frustrated student typing:**
-> "Every CS student wastes hours transcribing code from lecture screens. You're so busy typing, you miss the explanation. You make typos. The professor moves on before you finish. We've all been there."
+### **Minute 1: The Problem (30 sec)**
+**Shayaan speaks:**
+> "Every CS student wastes time typing code from lectures. You make typos, miss explanations, the professor moves on. We've all been there."
 
-### The Solution - Live Demo (90 seconds)
-**Person 1 plays professor, shows code on screen:**
+### **Minute 2: Live Demo (90 sec)**
+**Hussain demonstrates on phone:**
 
+1. Show projector with Python code:
 ```python
 def fibonacci(n):
     if n <= 1:
         return n
     return fibonacci(n-1) + fibonacci(n-2)
-
-# Test
-for i in range(10):
-    print(fibonacci(i))
 ```
 
-**Person 4 demonstrates on phone (live or video):**
-
-1. **Open CodeSnap app** (3 seconds)
-2. **Tap "Snap Code" button** → Camera opens (2 seconds)
-3. **Take photo of screen** → Shows processing spinner (2 seconds)
-4. **Code appears perfectly formatted** with syntax highlighting (3 seconds)
-5. **Tap "Copy"** → "Copied to clipboard!" (1 second)
-6. **Switch to IDE** → Paste → Code is there, perfect formatting (3 seconds)
+2. Open CodeSnap on phone
+3. Tap "Snap Code" → Camera opens
+4. Take photo of screen
+5. Shows "Extracting code..." (2 seconds)
+6. Code appears perfectly formatted with syntax highlighting
+7. Tap "Copy" → "Copied to clipboard!"
+8. Switch to VS Code → Paste → Perfect code!
 
 **Total time: 15 seconds from photo to IDE**
 
-**Show bonus features:**
-- History view (past extractions)
-- Works with Python, Java, JavaScript, C++
-- Download as file option
+### **Minute 3: Impact (30 sec)**
+**Hussain speaks:**
+> "Uses Gemini 2.0 Flash Vision for 95%+ accuracy. Works with any language, any lighting. Students save 30+ minutes per lecture. Every CS student needs this."
 
-### Impact (40 seconds)
-**Person 2/3 speaks:**
-> "We use Gemini 2.0 Flash Vision for 95%+ accuracy. Works in any lighting, any angle, any programming language. Students save 30+ minutes per lecture. Open source, works on any phone."
-
-**Show comparison:**
-- ❌ Old way: 5 minutes typing, 3 typos, missed explanation
-- ✅ CodeSnap: 15 seconds, perfect code, stayed focused
-
-**Market:**
-- 4,000+ universities
-- 500,000+ CS students per year
-- Every single one needs this
+**Show stats:**
+- ⏱️ 15 seconds vs 5 minutes
+- ✅ Zero typos
+- 📚 Works with Python, Java, JS, C++
+- 🌍 500,000+ CS students need this
 
 ---
 
 ## 🎯 Why This Wins
 
-### ✅ Fits Problem Statement Perfectly
-From hackathon doc:
-> "How can we build systems... to enable rapid prototyping of new software products with natural language?"
+### **Judging Criteria:**
 
-**CodeSnap enables rapid prototyping by getting code into students' environments instantly.**
+| Criteria | Score | Why |
+|----------|-------|-----|
+| **Impact (25%)** | 🔥🔥🔥 | Every CS student worldwide needs this |
+| **Demo (50%)** | 🔥🔥🔥 | Photo to code in 15 seconds = magic |
+| **Creativity (15%)** | 🔥🔥 | Mobile-first, uses Gemini Vision uniquely |
+| **Pitch (10%)** | 🔥🔥🔥 | Crystal clear problem everyone relates to |
 
-### ✅ Judging Criteria Alignment
-
-| Criteria | How We Score |
-|----------|--------------|
-| **Impact (25%)** | Every CS student worldwide needs this. Saves 30+ min per lecture. |
-| **Demo (50%)** | Instant gratification - photo to code in 15 seconds. Wow factor! |
-| **Creativity (15%)** | No one's solved this elegantly. Mobile-first is unique. |
-| **Pitch (10%)** | Crystal clear problem everyone relates to. |
-
-### ✅ Advantages Over Other Ideas
-- **Simpler to build** than debugging systems
-- **More universal** problem (every lecture, every student)
-- **Instant demo** impact (see it work in real-time)
-- **Mobile-first** (judges love phone demos)
-- **Clear monetization** path (freemium model)
+### **Why It's Strong:**
+✅ Universal problem (every lecture, every student)  
+✅ Instant wow factor (15-second demo)  
+✅ Simple but powerful (easy to understand)  
+✅ Mobile-first (phone demos impress)  
+✅ Uses Gemini Vision creatively  
+✅ Clear market (500K+ students)  
+✅ Doable in 7 hours with 2 people  
 
 ---
 
-## 🚧 Potential Challenges & Solutions
+## 🚧 Challenges & Solutions
 
-### Challenge 1: Gemini OCR Not Accurate
-**Solution:** 
-- Test early with various code samples
-- Add image preprocessing (contrast, rotation)
-- Show confidence score, let user retake if low
-- Manual correction option as fallback
-
-### Challenge 2: Phone Camera Quality Varies
+### **Challenge 1: Camera API on Different Phones**
 **Solution:**
-- Guide user: "Hold steady, ensure code is in frame"
-- Auto-crop to code area
-- Suggest better lighting if too dark
-- Works with gallery uploads too (can use DSLR)
+- Test on both phones early (11 AM)
+- Fallback: Upload from gallery
+- Works on any modern browser
 
-### Challenge 3: Demo Phone Has Issues
+### **Challenge 2: Gemini Accuracy Issues**
 **Solution:**
-- Test on 3+ different phones beforehand
+- Optimize prompt in first hour
+- Add "Image too blurry, try again" warning
+- Guide user: "Hold steady, good lighting"
+
+### **Challenge 3: Demo Fails Live**
+**Solution:**
+- Pre-record video demo by 4:30 PM
+- Test on venue WiFi before judging
 - Have backup phone ready
-- Pre-record video demo (play if live fails)
-- Can demo with laptop webcam if needed
 
-### Challenge 4: Slow API Response
+### **Challenge 4: Running Out of Time**
 **Solution:**
-- Show engaging loading animation
-- Pre-cache demo responses for speed
-- Compress images before upload
-- Use Gemini Flash (faster model)
+- Skip backend (call Gemini directly from frontend)
+- Skip history feature
+- Focus: Photo → Code → Copy (core flow only)
 
 ---
 
-## ✂️ What to Cut If Running Behind
+## ✂️ What to Cut If Behind Schedule
 
-### Must Have (Core Demo):
-- ✅ Photo upload (camera or gallery)
-- ✅ Gemini extracts code
+### **Must Have (Core Demo):**
+- ✅ Camera capture
+- ✅ Gemini Vision extraction
 - ✅ Display formatted code
 - ✅ Copy to clipboard
 
-### Nice to Have (Cut if needed):
-- ❌ History feature
+### **Nice to Have (Cut if needed):**
+- ❌ Backend/history storage
+- ❌ Multiple language support (just Python)
 - ❌ Download as file
-- ❌ Multiple language support (just Python for demo)
-- ❌ Error correction
+- ❌ Advanced error handling
 
-### Don't Even Try:
-- ❌ User accounts/login
-- ❌ Sharing between students
-- ❌ Integrations with IDEs
-- ❌ Real-time collaboration
+### **Don't Even Try:**
+- ❌ User accounts
+- ❌ Sharing features
+- ❌ IDE integrations
+- ❌ Offline mode
 
-**Priority:** Working photo-to-code flow > Extra features
-
----
-
-## 📋 Pre-Hackathon Checklist
-
-### Before Saturday Morning:
-- [ ] All phones charged (100%)
-- [ ] Test phone cameras work well
-- [ ] Everyone has Node.js, Git installed
-- [ ] Apply for Gemini API credits (Friday)
-- [ ] Set up GitHub repo
-- [ ] Confirm roles (Person 1, 2, 3, 4)
-- [ ] Read this README together
-
-### Saturday 9:00 AM (Before Kickoff):
-- [ ] Join Discord
-- [ ] Connect to WiFi (test on phones!)
-- [ ] Get Gemini API key
-- [ ] Clone repo on all laptops
-- [ ] Quick team huddle
+**Priority:** Working photo-to-code flow > everything else
 
 ---
 
-## 🏆 Success Metrics
+## 📋 Saturday Morning Checklist
 
-### By 12:00 PM (Lunch):
-- [ ] Image upload works
-- [ ] Gemini Vision extracts text
-- [ ] Basic UI displays result
-- [ ] Can test on phone
+### **Before You Start (9:00 AM):**
+- [ ] Both phones fully charged
+- [ ] Laptops charged
+- [ ] Gemini API credits applied for
+- [ ] GitHub repo created
+- [ ] WiFi password: SXguest!
+- [ ] Roles confirmed (Hussain = Frontend, Shayaan = Support)
 
-### By 3:00 PM:
+### **Setup Phase (10:00 AM):**
+- [ ] Gemini API key obtained
+- [ ] React project initialized
+- [ ] First API call successful
+- [ ] Camera API tested on phone
+
+---
+
+## 🏆 Success Checkpoints
+
+### **12:00 PM (Lunch):**
+- [ ] Camera capture works
+- [ ] Gemini API extracts text
+- [ ] Code displays on screen
+
+### **2:00 PM:**
 - [ ] End-to-end flow works
-- [ ] Photo → Code → Copy works smoothly
-- [ ] Tested on 5+ code samples
-- [ ] Works on 2+ different phones
+- [ ] Tested on 3+ code samples
+- [ ] Copy button works
 
-### By 4:30 PM:
+### **4:30 PM:**
 - [ ] Demo video recorded
-- [ ] Submission form completed
-- [ ] Live demo rehearsed 3 times
-- [ ] Backup plans ready
+- [ ] Submission form filled
+- [ ] Live demo tested 3 times
 
-### By 5:00 PM:
-- [ ] Submitted on time
-- [ ] GitHub repo public
-- [ ] Team confident and ready
+### **5:00 PM:**
+- [ ] SUBMITTED ✅
+- [ ] Ready for judging
 
 ---
 
 ## 🎓 Why Students Need This
 
-### Student Pain Points We Solve:
-1. **Time wasted typing** → 15 seconds vs 5 minutes
-2. **Transcription errors** → Perfect accuracy
-3. **Missing explanations** → Focus on learning, not typing
-4. **Lost code** → History feature saves everything
-5. **Blurry photos** → Get clean, formatted code
+### **Problems We Solve:**
+1. ⏰ Time: 15 sec vs 5 min
+2. ✍️ Typos: Zero errors
+3. 🎯 Focus: Listen, don't type
+4. 📸 Blurry photos: Get clean code
+5. 🔄 Retyping: Never again
 
-### Use Cases Beyond Lectures:
-- Conferences (capture speaker's code)
-- Coding bootcamps
-- YouTube tutorials (pause, snap, continue)
-- Books/textbooks (digitize printed code)
-- Whiteboard code (team meetings)
+### **Use Cases:**
+- University lectures
+- Conference talks  
+- YouTube coding tutorials
+- Textbook code examples
+- Whiteboard code in meetings
 
-**Total Addressable Market:**
-- 20M+ university students globally
-- 100M+ developers watching tutorials
-- $5/month subscription = $100M+ ARR potential
-
----
-
-## 🚀 Post-Hackathon: If We Win
-
-### Week 1:
-- Polish UI/UX
-- Add more languages (10+ total)
-- Deploy to public URL
-- Share on Reddit r/cscareerquestions
-
-### Month 1:
-- University pilot program (5 professors)
-- Chrome extension (capture from browser)
-- VS Code integration (direct paste)
-- Waitlist for beta users
-
-### Month 6:
-- Freemium model (5 snaps/day free, unlimited $4.99/mo)
-- Premium: IDE integrations, team sharing, history sync
-- Partner with Coursera, Udemy
-- YC application
+**Market Size:**
+- 500,000+ CS students per year (US/UK)
+- 20M+ worldwide
+- $5/month = $100M+ potential
 
 ---
 
-## 💬 Sample Q&A Prep
+## 💬 Q&A Prep
 
-**Q: What if the code is handwritten on a whiteboard?**
-A: Gemini Vision handles that too! We tested it - works great.
+**Q: What if handwritten on whiteboard?**  
+A: Gemini Vision handles it! We tested - works well.
 
-**Q: How do you handle different programming languages?**
-A: Gemini auto-detects the language. We support Python, Java, JavaScript, C++, C, and more.
+**Q: Why not just use Google Lens?**  
+A: Lens extracts text, but doesn't format code properly. We optimize for code specifically with syntax highlighting.
 
-**Q: What about privacy? Are you storing images?**
-A: No images stored. We extract the code and delete the image immediately.
+**Q: Does it work offline?**  
+A: Not yet - needs Gemini API. Could add offline OCR as fallback.
 
-**Q: Does this work offline?**
-A: Not yet - needs Gemini API. But we could add offline mode with on-device OCR as a fallback.
+**Q: What languages do you support?**  
+A: Gemini auto-detects. We've tested Python, Java, JavaScript, C++, C.
 
-**Q: Why not just use Google Lens?**
-A: Google Lens extracts text, but doesn't format code properly. No syntax highlighting, no language detection, no copy-ready formatting. We're optimized specifically for code.
+**Q: Business model?**  
+A: Freemium - 5 free snaps/day, $4.99/month unlimited. Premium adds IDE integrations.
 
-**Q: What's the business model?**
-A: Freemium - 5 free snaps/day, $4.99/mo for unlimited. Premium adds IDE integrations and team features.
+**Q: Why is this better than typing?**  
+A: 15 seconds vs 5 minutes. Zero typos. Students can focus on learning instead of transcribing.
+
+---
+
+## 🚀 Post-Hackathon (If We Win)
+
+### **Week 1:**
+- Polish UI
+- Add more languages
+- Chrome extension
+- Share on Reddit/Twitter
+
+### **Month 1:**
+- University pilot (5 professors)
+- VS Code integration
+- Beta waitlist
+
+### **Month 6:**
+- Launch freemium ($4.99/mo)
+- YC application with $50K credits as traction
+- Integrate with Coursera/Udemy
+
+---
+
+## 🔗 Important Links
+
+- **Hackathon Discord:** https://discord.gg/94mP3c7uSJ
+- **Gemini API Credits:** https://docs.google.com/forms/d/e/1FAIpQLSdOhB7G8EdwGYxqcLdbgcpqP4qIgXk7z5UX_3L1Xx9XPQWuXA/viewform
+- **Submission Form:** https://cerebralvalley.ai/e/vibe-code-gemini-london/hackathon/submit
+- **Gemini Docs:** https://ai.google.dev/docs
+- **React Camera API:** https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia
 
 ---
 
 ## 📞 Emergency Contacts
 
-- **Hackathon Organizer:** wania@cerebralvalley.ai
+- **Organizer:** wania@cerebralvalley.ai
 - **Discord:** Gemini Vibe Code Hackathon London
 - **WiFi Issues:** Venue staff
-- **API Issues:** Google AI status page
+- **API Issues:** Check Google AI status
 
 ---
 
-## 💪 Team Pep Talk
+## 💪 Final Pep Talk
 
-**Why we'll win:**
+**Why you'll win:**
 
-1. **Everyone relates** - Judges were CS students once, they've felt this pain
-2. **Instant wow factor** - Photo → Code in 15 seconds is magic
-3. **Simple but powerful** - Easy to understand, hard to copy without Gemini
-4. **Mobile-first** - Phone demos always impress
-5. **Clear market** - Every CS student on Earth needs this
+1. **Everyone relates** - Judges were students, they've felt this pain
+2. **Instant magic** - Photo to code in 15 seconds
+3. **Simple concept** - Easy to understand, hard to build without Gemini
+4. **Mobile-first** - Phone demos always wow
+5. **Clear market** - Every CS student needs this
+6. **Two-person advantage** - Less coordination, faster execution
+
+**Your strengths:**
+- Hussain knows frontend + vision → perfect for this
+- Shayaan handles infrastructure + demo → critical for winning
+- Small team = faster decisions, less overhead
+- You can build this in 5-6 hours, leaving time for polish
 
 **Remember:**
-- Keep it simple - working demo beats complex features
-- Test on phones early and often
-- Record backup video by 4:30 PM
-- Smile during demo - enthusiasm matters!
+- Test camera early (11 AM)
+- Record demo video by 4:30 PM (NON-NEGOTIABLE)
+- Working demo > perfect code
+- Smile during pitch - enthusiasm wins
 
-**Let's build something students will actually use! 🚀**
+**You got this! 📸🏆**
 
 ---
 
 ## 📄 License
 
-MIT License - Fully open source (hackathon requirement)
+MIT License - Fully open source
 
 ---
 
-## 🎯 Final Checklist Saturday Morning
+## ⏰ Final Timeline Summary
 
-**Before you start coding (9:00 AM):**
-- [ ] Roles confirmed (who's Person 1, 2, 3, 4?)
-- [ ] API key obtained
-- [ ] GitHub repo cloned
-- [ ] Quick architecture review (5 minutes)
-- [ ] Coffee acquired ☕
+| Time | What |
+|------|------|
+| 10:00-11:00 | Setup, test Gemini API |
+| 11:00-14:00 | Build core features |
+| 14:00-15:30 | Integration + testing |
+| 15:30-16:30 | Demo prep + video |
+| 16:30-17:00 | Submit + rehearse |
+| 17:15 | JUDGING STARTS |
 
-**Let's win this! 📸🏆**
+**Let's win this thing! 🚀📸**
