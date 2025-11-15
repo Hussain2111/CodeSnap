@@ -92,7 +92,70 @@ Total time: 3 seconds
 
 ## 👥 Team Responsibilities
 
-### Person 1: Image Upload & Processing Pipeline
+---
+
+### Hussain: Gemini Vision AI Engine
+**What you're building:**
+- Integration with Gemini 2.0 Flash Vision
+- Prompt engineering for accurate code extraction
+- Handle multiple programming languages
+
+**Tech Stack:**
+- Gemini 2.0 Flash Vision API
+- Google AI SDK
+- Node.js or Python
+
+**Your Tasks:**
+1. Receive images from Person 1
+2. Send to Gemini Vision with optimized prompt
+3. Parse Gemini response to extract just code (no explanations)
+4. Detect programming language automatically
+5. Return clean code string to Person 1
+
+**Key Prompt:**
+```
+Extract ONLY the code from this image. Rules:
+1. Return code exactly as written, preserve all formatting
+2. Do NOT add explanations or comments
+3. Do NOT wrap in markdown code blocks
+4. If image is unclear, return "ERROR: Image quality too low"
+5. Detect the programming language
+```
+
+**Time Estimate:** 2-3 hours
+
+---
+
+### Shayaan: Code Formatting & History
+**What you're building:**
+- Syntax highlighting for extracted code
+- Code history/library (save previous extractions)
+- Export options (download, copy to clipboard)
+
+**Tech Stack:**
+- Prism.js or Highlight.js (syntax highlighting)
+- In-memory storage or Firebase
+- Code beautifier libraries
+
+**Your Tasks:**
+1. Receive code from backend
+2. Apply syntax highlighting based on detected language
+3. Format code (proper indentation, spacing)
+4. Store in user's session history (last 10 extractions)
+5. Add copy-to-clipboard and download functionality
+6. Optional: Detect common OCR errors and fix (like `0` vs `O`)
+
+**Features:**
+- Syntax highlighting for: Python, JavaScript, Java, C++, C
+- One-click copy button
+- Download as `.py`, `.js`, etc.
+- History sidebar showing past extractions
+
+**Time Estimate:** 2-3 hours
+
+---
+
+### Hussain & Shayaan: Image Upload & Processing Pipeline
 **What you're building:**
 - Backend API to receive image uploads
 - Image preprocessing (rotation, contrast, cropping)
@@ -125,68 +188,7 @@ Response: {
 
 ---
 
-### Person 2: Gemini Vision AI Engine
-**What you're building:**
-- Integration with Gemini 2.0 Flash Vision
-- Prompt engineering for accurate code extraction
-- Handle multiple programming languages
-
-**Tech Stack:**
-- Gemini 2.0 Flash Vision API
-- Google AI SDK
-- Node.js or Python
-
-**Your Tasks:**
-1. Receive images from Person 1
-2. Send to Gemini Vision with optimized prompt
-3. Parse Gemini response to extract just code (no explanations)
-4. Detect programming language automatically
-5. Return clean code string to Person 1
-
-**Key Prompt:**
-```
-Extract ONLY the code from this image. Rules:
-1. Return code exactly as written, preserve all formatting
-2. Do NOT add explanations or comments
-3. Do NOT wrap in markdown code blocks
-4. If image is unclear, return "ERROR: Image quality too low"
-5. Detect the programming language
-```
-
-**Time Estimate:** 2-3 hours
-
----
-
-### Person 3: Code Formatting & History
-**What you're building:**
-- Syntax highlighting for extracted code
-- Code history/library (save previous extractions)
-- Export options (download, copy to clipboard)
-
-**Tech Stack:**
-- Prism.js or Highlight.js (syntax highlighting)
-- In-memory storage or Firebase
-- Code beautifier libraries
-
-**Your Tasks:**
-1. Receive code from backend
-2. Apply syntax highlighting based on detected language
-3. Format code (proper indentation, spacing)
-4. Store in user's session history (last 10 extractions)
-5. Add copy-to-clipboard and download functionality
-6. Optional: Detect common OCR errors and fix (like `0` vs `O`)
-
-**Features:**
-- Syntax highlighting for: Python, JavaScript, Java, C++, C
-- One-click copy button
-- Download as `.py`, `.js`, etc.
-- History sidebar showing past extractions
-
-**Time Estimate:** 2-3 hours
-
----
-
-### Person 4: Mobile-First Web UI
+### Shama: Mobile-First Web UI
 **What you're building:**
 - Mobile-responsive web app (phone camera is primary use case)
 - Image upload interface (camera + gallery)
@@ -249,22 +251,22 @@ Extract ONLY the code from this image. Rules:
 ### Hour 1-3 (11:00 AM - 1:00 PM): Core Development
 **Everyone builds their component in parallel**
 
-**Person 1:**
+**Hussain & Shayaan**
 - ✅ Build upload endpoint
 - ✅ Test with sample images
 - ✅ Basic image preprocessing
 
-**Person 2:**
+**Hussain**
 - ✅ Gemini Vision integration working
 - ✅ Test with 5+ code images (Python, JS, Java)
 - ✅ Optimize prompt for accuracy
 
-**Person 3:**
+**Shayaan**
 - ✅ Syntax highlighting displays correctly
 - ✅ Copy-to-clipboard works
 - ✅ Basic history storage
 
-**Person 4:**
+**Shama**
 - ✅ Camera capture works on phone
 - ✅ Upload to backend functional
 - ✅ Display extracted code
@@ -280,12 +282,12 @@ Extract ONLY the code from this image. Rules:
 - Test full flow: Photo → Upload → Extract → Display
 - Fix integration bugs
 
-**Person 1 + 2:**
+**Hussain and Shayaan:**
 - Optimize image quality → extraction accuracy
 - Handle edge cases (blurry images, weird angles)
 - Add error handling
 
-**Person 3 + 4:**
+**shama:**
 - Polish UI (make it beautiful)
 - Add loading animations
 - Test on multiple phones
