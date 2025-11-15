@@ -185,7 +185,6 @@ export default function Camera({ onClose }: Props) {
           <div className="capture-actions">
             <button className="btn" onClick={retake}>Retake</button>
             <a className="btn primary" href={captured} download="codesnap.jpg">Download</a>
-            <button className="btn" onClick={selectThis}>Select this</button>
             <button className="btn" onClick={analyzeImage} disabled={extracting}>
               {extracting ? 'Analyzing…' : 'Analyze'}
             </button>
