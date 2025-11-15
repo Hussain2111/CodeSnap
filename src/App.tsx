@@ -23,7 +23,16 @@ function GoogleLogo() {
   )
 }
 
+import { useState } from 'react'
+import Camera from './Camera'
+
 function App() {
+  const [view, setView] = useState<'home' | 'camera'>('home')
+
+  if (view === 'camera') {
+    return <Camera onClose={() => setView('home')} />
+  }
+
   return (
     <div className="gs-hero">
       <div className="gs-card">
@@ -32,7 +41,7 @@ function App() {
         <p className="gs-desc">Instantly extract code from lecture screens — snap, extract, paste.</p>
 
         <div className="gs-cta">
-          <a className="btn-glow" href="#get-started">Get Started</a>
+          <button className="btn-glow" onClick={() => setView('camera')}>Get Started</button>
         </div>
       </div>
     </div>
