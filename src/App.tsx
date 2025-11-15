@@ -1,44 +1,40 @@
 import './App.css'
 
+function GoogleLogo() {
+  const letters: [string, string][] = [
+    ['C', 'g-blue'],
+    ['o', 'g-red'],
+    ['d', 'g-yellow'],
+    ['e', 'g-blue'],
+    ['S', 'g-green'],
+    ['n', 'g-red'],
+    ['a', 'g-blue'],
+    ['p', 'g-green']
+  ]
+
+  return (
+    <div className="google-logo" aria-hidden>
+      {letters.map(([ch, cls], i) => (
+        <span key={i} className={cls}>
+          {ch}
+        </span>
+      ))}
+    </div>
+  )
+}
+
 function App() {
   return (
-    <div className="homepage">
-      <header className="hero">
-        <div className="hero-content">
-          <h1 className="title">CodeSnap — Photo to Code</h1>
-          <p className="subtitle">
-            Snap a photo of lecture code and get clean, copy-ready source instantly.
-          </p>
-          <div className="actions">
-            <a className="btn primary" href="#get-started">Get Started</a>
-            <a className="btn" href="#demo">Try Demo</a>
-          </div>
-        </div>
-        <div className="hero-visual" aria-hidden>
-          <div className="phone-mock">📸</div>
-        </div>
-      </header>
+    <div className="gs-hero">
+      <div className="gs-card">
+        <GoogleLogo />
+        <h1 className="gs-title">CodeSnap</h1>
+        <p className="gs-desc">Instantly extract code from lecture screens — snap, extract, paste.</p>
 
-      <main className="features">
-        <section className="feature-list">
-          <article>
-            <h3>Fast</h3>
-            <p>Extract code in seconds using Gemini Vision.</p>
-          </article>
-          <article>
-            <h3>Accurate</h3>
-            <p>Preserves indentation and formatting for easy copy/paste.</p>
-          </article>
-          <article>
-            <h3>Mobile First</h3>
-            <p>Built for phones and desktops — capture or upload images.</p>
-          </article>
-        </section>
-      </main>
-
-      <footer className="site-footer">
-        <small>Made for the Gemini Vibe Code Hackathon — Team CodeSnap</small>
-      </footer>
+        <div className="gs-cta">
+          <a className="btn-glow" href="#get-started">Get Started</a>
+        </div>
+      </div>
     </div>
   )
 }
