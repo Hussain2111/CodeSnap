@@ -1,0 +1,60 @@
+{
+  "name": "codesnap-extension",
+  "displayName": "CodeSnap",
+  "description": "VS Code extension for CodeSnap - Transfer code from your phone to VS Code",
+  "version": "0.0.1",
+  "publisher": "codesnap",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "codesnap.startServer",
+        "title": "CodeSnap: Start Server"
+      },
+      {
+        "command": "codesnap.pairDevice",
+        "title": "CodeSnap: Pair Device"
+      },
+      {
+        "command": "codesnap.receiveCode",
+        "title": "CodeSnap: Receive Code"
+      }
+    ],
+    "configuration": {
+      "title": "CodeSnap",
+      "properties": {
+        "codesnap.port": {
+          "type": "number",
+          "default": 3001,
+          "description": "Port for the CodeSnap server"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "lint": "eslint src --ext ts"
+  },
+  "devDependencies": {
+    "@types/node": "^18.0.0",
+    "@types/qrcode": "^1.5.6",
+    "@types/vscode": "^1.85.0",
+    "@types/ws": "^8.5.5",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.0.0",
+    "typescript": "^5.1.6"
+  },
+  "dependencies": {
+    "qrcode": "^1.5.3",
+    "ws": "^8.14.2"
+  }
+}
